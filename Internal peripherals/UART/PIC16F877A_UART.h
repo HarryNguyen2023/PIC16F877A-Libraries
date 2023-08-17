@@ -4,10 +4,10 @@
 #include <xc.h>
 
 // Define the baud rate for the UART module
-#define BAUD_RATE 9600
+#define BAUD_RATE 57600
 
 // Variable to keep track the string reception via UART
-uint16_t uart_str_idx = 0;
+static uint16_t uart_str_idx = 0;
 
 void UARTTransInit(void);
 void UARTRcvInit(void);
