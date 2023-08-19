@@ -6,7 +6,6 @@
 // Define the baud rate for the UART module
 #define BAUD_RATE 57600
 
-// Variable to keep track the string reception via UART
 static uint16_t uart_str_idx = 0;
 
 void UARTTransInit(void);

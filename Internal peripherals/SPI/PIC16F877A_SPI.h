@@ -15,13 +15,16 @@
 // Array of slave select pins
 uint8_t SS_pin[MAX_MATRIX] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80};
 
+// Variable to keep track the reception via SPI
+extern uint16_t spi_str_idx;
+
 void SPI_Master_Init(void);
 void SPI_Slave_Init(void);
 void SS_Enable(uint8_t slave);
 void SS_Disable(uint8_t slave);
 void SPI_Tx_Byte(uint8_t data);
 void SPI_Tx_String(char* string);
-void Rx_Byte_Interrupt(uint8_t* rcv);
-void Rx_String_Interrupt(uint8_t* string, uint16_t len);
+uint8_t Rx_Byte_Interrupt(void);
+uint8_t Rx_String_Interrupt(uint8_t* string, uint16_t len);
 
 #endif

@@ -1,5 +1,7 @@
 #include "PIC16F877A_SPI.h"
 
+uint16_t spi_str_idx = 0;
+
 // Function to initiate MCU in SPI master mode
 void SPI_Master_Init()
 {
@@ -91,17 +93,24 @@ void SPI_Tx_String(char* string)
 }
 
 // Function to receive data via SPI
-void Rx_Byte_Interrupt(uint8_t* rcv)
+uint8_t Rx_Byte_Interrupt()
 {
-    if(SSPIF)
-    {
-        *rcv = SSPBUF;
-    }
+    uint8_t rcv_char = SSPBUF;
+    return rcv_char;
 }
 
 // Function to receive a string via SPI
-void Rx_String_Interrupt(uint8_t* string, uint16_t len)
+uint8_t Rx_String_Interrupt(uint8_t* string, uint16_t len)
 {
-    for(uint16_t i = 0; i < len; ++i)
-        string[i] = SSPBUF;
+    if(spi_str_idx == len - 1)
+    {
+        string[spi_str_idx++] = SSPBUF;
+        string[spi_str_idx] = 0;
+        return 1;
+    }
+    else
+    {
+        string[spi_str_idx++] = SSPBUF;
+        return 0;
+    }
 }
