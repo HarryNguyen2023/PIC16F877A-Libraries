@@ -27,7 +27,7 @@ extern float hcsr04_distance;
 
 void hcsr04Init(void);
 void hcsr04Trigger(void);
-void hcsr04Distance(void);
+uint8_t hcsr04Distance(void);
 float getDistance(void);
 
 #endif

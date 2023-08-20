@@ -24,7 +24,8 @@ void SS_Enable(uint8_t slave);
 void SS_Disable(uint8_t slave);
 void SPI_Tx_Byte(uint8_t data);
 void SPI_Tx_String(char* string);
-uint8_t Rx_Byte_Interrupt(void);
-uint8_t Rx_String_Interrupt(uint8_t* string, uint16_t len);
+uint8_t SPI_Rx_Byte_Interrupt(void);
+uint8_t SPI_Rx_String_Interrupt(uint8_t* string, uint16_t len);
+uint8_t SPI_Rx_byte(void);
 
 #endif

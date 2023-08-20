@@ -46,7 +46,7 @@ void hcsr04Trigger()
 }
 
 // Function to get the value of the distance from the HCSR04 sensor and will be called inside the interrupt function
-void hcsr04Distance()
+uint8_t hcsr04Distance()
 {
     if (hcsr04_state == IDLE)
     {
@@ -54,15 +54,16 @@ void hcsr04Distance()
         // Change input capture mode to falling edge
         changeModeFalling();
         hcsr04_state = DONE;
+        return IDLE;
     }
     else if (hcsr04_state == DONE)
     {
         fallT2 = CCPR1;
         hcsr04_distance = calDistance();
-        // Add some code for transmission data if necessary
         // Change input capture mode to rising edge
         changeModeRising();
         hcsr04_state = IDLE;
+        return DONE;
     }
 }
 

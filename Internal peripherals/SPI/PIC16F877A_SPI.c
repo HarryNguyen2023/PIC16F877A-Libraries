@@ -5,9 +5,9 @@ uint16_t spi_str_idx = 0;
 // Function to initiate MCU in SPI master mode
 void SPI_Master_Init()
 {
-    // Configure PORTD to ouput 
+    // Configure PORTD to output 
     TRISD = 0x00;
-    // Initiate the master mode with data rate Fosc/4
+    // Initiate the master mode with data rate Fosc/16
     SSPM3 = 0;
     SSPM2 = 0;
     SSPM1 = 0;
@@ -80,6 +80,7 @@ void SS_Disable(uint8_t slave)
 void SPI_Tx_Byte(uint8_t data)
 {
     SSPBUF = data;
+    while(!SSPSTATbits.BF);
     // Clear write collision bit
     if(WCOL)
         WCOL = 0;
@@ -93,14 +94,14 @@ void SPI_Tx_String(char* string)
 }
 
 // Function to receive data via SPI
-uint8_t Rx_Byte_Interrupt()
+uint8_t SPI_Rx_Byte_Interrupt()
 {
     uint8_t rcv_char = SSPBUF;
     return rcv_char;
 }
 
 // Function to receive a string via SPI
-uint8_t Rx_String_Interrupt(uint8_t* string, uint16_t len)
+uint8_t SPI_Rx_String_Interrupt(uint8_t* string, uint16_t len)
 {
     if(spi_str_idx == len - 1)
     {
@@ -113,4 +114,12 @@ uint8_t Rx_String_Interrupt(uint8_t* string, uint16_t len)
         string[spi_str_idx++] = SSPBUF;
         return 0;
     }
+}
+
+// Function to read SPI without using interrupt
+uint8_t SPI_Rx_byte()
+{
+    SSPBUF = 0;
+    while(!SSPSTATbits.BF);
+    return SSPBUF;
 }

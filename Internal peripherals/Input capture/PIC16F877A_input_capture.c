@@ -93,3 +93,10 @@ void changeModeRising()
     // Enable CCP1 interrupt
     CCP1IE = 1;
 }
+
+// Function to read the value of the input capture register
+uint16_t readInputCapture1()
+{
+    uint16_t ccp1 = CCPR1;
+    return ccp1;
+}

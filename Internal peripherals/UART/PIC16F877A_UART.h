@@ -4,7 +4,7 @@
 #include <xc.h>
 
 // Define the baud rate for the UART module
-#define BAUD_RATE 57600
+#define BAUD_RATE 19200
 
 static uint16_t uart_str_idx = 0;
 
