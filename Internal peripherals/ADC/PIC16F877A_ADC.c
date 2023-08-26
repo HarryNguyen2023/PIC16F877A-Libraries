@@ -50,7 +50,7 @@ void ADC_Init(uint8_t* adc_channel, uint8_t len)
 }
 
 // Function to read the data from a specific channel
-uint8_t ADC_Read(uint8_t adc_channel)
+uint16_t ADC_Read(uint8_t adc_channel)
 {
     if(adc_channel > 7)
         return 0;
